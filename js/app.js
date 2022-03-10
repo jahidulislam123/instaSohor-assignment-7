@@ -5,11 +5,17 @@ const reportedPostsId = [];
 
 const getLikedPosts = () => {
     return posts.filter((post) => likedPostsId.includes(post.id));
+    
 };
+
+
 
 const getReportedPosts = () => {
     return posts.filter((post) => reportedPostsId.includes(post.id));
+    
 };
+// console.log('ami valo aci');
+
 
 const isLiked = (id) => {
     return likedPostsId?.length && !!likedPostsId.includes(id);
@@ -21,11 +27,14 @@ const addToLiked = (id) => {
     showPosts(posts);
 };
 
+
 const reportPost = (id) => {
     reportedPostsId.push(id);
     const remainingPosts = posts.filter((post) => !reportedPostsId.includes(post.id));
+    // console.log(remainingPosts);
     showPosts(remainingPosts);
 };
+
 
 const displayContent = (text) => {
     return text.length < 30 ? text : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
@@ -60,7 +69,7 @@ const createPost = (post) => {
     const textComment=post.comments[0].text;
 
     const postComment =post.comments[0].user;
-    console.log(postComment);
+    // console.log(postComment);
     const div = document.createElement( "article" );
     
     div.classList.add( "post" );
@@ -158,15 +167,20 @@ const displayLikedPosts = () => {
         const div = createPost(post);
         document.getElementById( "liked" ).appendChild(div);
     });
+    // displayLikedPosts.value='';
 };
 
 const displayReportedPosts = () => {
     const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+    
+    // console.log(reportedPosts);
+    reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
+        
     });
 };
+
 
 const loadPosts = async () =>{
   let data = await fetch('../data/posts.json');
